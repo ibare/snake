@@ -1,4 +1,6 @@
 snake
 =====
 
-간단한 To do 앱
+snake 는 GTD 보다 단순한 모델을 추구하는 To do 앱입니다.
+
+
