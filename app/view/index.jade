@@ -1,0 +1,16 @@
+extends layout/default
+
+block angularLoader
+  script(type="text/javascript", src="/js/app/snake-app.js")
+
+block content
+  div(ng-controller="rootController").container
+    .head
+      h1 Snake
+      input(ng-model="onToDo", type="text", placeholder="할 일이 생각나면 여기에...", ng-on-enter="enterInbox()").to-do
+    .inbox
+      ul
+        li(ng-repeat="todo in inbox") {{todo.title}}
+
+    .history
+
