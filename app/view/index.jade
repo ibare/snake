@@ -7,10 +7,14 @@ block content
   div(ng-controller="rootController").container
     .head
       h1 Snake
-      input(ng-model="onToDo", type="text", placeholder="할 일이 생각나면 여기에...", ng-on-enter="enterInbox()").to-do
+      input(ng-model="onToDo", type="text", placeholder="할 일이 생각나면 여기에...", ng-on-enter="enterInbox()", autofocus="true").collect-to-do
     .inbox
       ul
-        li(ng-repeat="todo in inbox") {{todo.title}}
+        li(ng-repeat="todo in inbox").to-do.status-empty {{todo.title}}
 
     .history
+      ul
+        li(ng-repeat="days in history").date-header {{days.dateCaption}}
+          ul
+            li(ng-repeat="day in days.todos").to-do.status-collect.s {{day.title}}
 

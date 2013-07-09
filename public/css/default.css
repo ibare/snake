@@ -1,14 +1,74 @@
+body {
+  background-color: #eee;
+}
 .container { 
   display: block;
   margin-left: auto; margin-right: auto;
   width: 800px; 
-  background-color: #fafafa;
+  color: #777;
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.head {
 
-.to-do { 
-  border: none;
+}
+.head h1 {
+  font-size: 45px;
+  font-style: bolder;
+  color: #655506;
+}
+.head input[type=text].collect-to-do { 
   height: 40px;
   font-size: 20px;
   width: 100%;
-  padding-left: 10px;
+  outline: none;
+  border: none;
+  background-color: #eee;
+  -webkit-transition: all 0.8s ease;
+          transition: all 0.8s ease;
+  opacity: 0.2;
+  margin-bottom: 15px;
+}
+.head input[type=text].collect-to-do:focus { 
+  margin-bottom: 30px;
+  opacity: 1.0;
+}
+
+.to-do { 
+  padding-left: 50px;
+  line-height: 150%;
+}
+.to-do:hover {
+  cursor: pointer;
+  color: #655506;
+  background-color: #fff;
+}
+.inbox {
+  
+}
+.inbox .to-do {
+  font-size: 30px;
+}
+.history {
+  margin-top: 40px;
+}
+.history .date-header { 
+  font-size: 26px;
+  font-weight: bolder;
+  margin-top: 30px;
+}
+.history .to-do {
+  font-size: 16px;
+  font-weight: normal;
+}
+.to-do.s { 
+  padding-left: 30px;
+}
+.to-do.status-empty { 
+  background: url(/images/status-empty.png) no-repeat 0 5px;
+}
+.to-do.status-empty.s { 
+  background: url(/images/status-empty-s.png) no-repeat 0 0;
+}
+.to-do.status-collect.s { 
+  background: url(/images/status-collect-s.png) no-repeat 0 0;
 }
