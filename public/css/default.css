@@ -72,3 +72,8 @@ body {
 .to-do.status-collect.s { 
   background: url(/images/status-collect-s.png) no-repeat 0 0;
 }
+#stage {
+  position: absolute;
+  overflow:hidden;
+  border: 1px solid red;
+}

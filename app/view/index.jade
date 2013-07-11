@@ -4,17 +4,17 @@ block angularLoader
   script(type="text/javascript", src="/js/app/snake-app.js")
 
 block content
-  div(ng-controller="rootController").container
-    .head
+  div(ng-controller="rootController", onresize="console.log('11')").container
+    div#stage
+    div.head
       h1 Snake
       input(ng-model="onToDo", type="text", placeholder="할 일이 생각나면 여기에...", ng-on-enter="enterInbox()", autofocus="true").collect-to-do
-    .inbox
+    div.inbox
       ul
         li(ng-repeat="todo in inbox").to-do.status-empty {{todo.title}}
 
-    .history
+    div(ng-resize="onChangeSize()").history
       ul
         li(ng-repeat="days in history").date-header {{days.dateCaption}}
           ul
             li(ng-repeat="day in days.todos").to-do.status-collect.s {{day.title}}
-

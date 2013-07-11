@@ -1,4 +1,15 @@
 angular.module('snakeApp', []).
+  directive('ngResize', function() { 
+    return function(scope, element, attrs) {
+      element.bind("onresize", function(event) {
+        scope.$apply(function() {
+          scope.$eval(attrs.ngResize);
+        });
+
+        event.preventDefault();
+      });
+    };
+  }).
   directive('ngOnEnter', function() {
     return function(scope, element, attrs) {
       element.bind("keydown keypress", function(event) {
@@ -21,6 +32,27 @@ angular.module('snakeApp', []).
   - 완료, 종료 : clear : 완전히 종료된 상태
 */
 var rootController = function($scope, $http) { 
+  $(window).resize(function() {
+    console.log($(window).height(), $(document).height());
+    //$('#stage').css('height', $(document).height());
+  });
+
+  $scope.onChangeSize = function() {
+    var historyPos = $('.history').position();
+
+    console.log(historyPos.left, hostoryPos.top);
+  };
+
+  $scope.initSVG = function() { 
+    var inboxPos = $('.inbox').position();
+    var historyPos = $('.history').position();
+
+    $scope.paper = Raphael("stage", 10, 10);
+    console.log($('body').height());
+    $('#stage').css('left', 0).css('top', 0).css('width', '90%').css('height', $('document').height());
+    console.log($('body').height());
+  };
+
   $scope.init = function() { 
     $scope.onToDo = "";
     $scope.inbox = [];
@@ -35,6 +67,8 @@ var rootController = function($scope, $http) {
     $scope.history[0].todos.push({ status: 'collect', title: '체크리스트 등록 및 수정 화면 개발' });
     $scope.history[0].todos.push({ status: 'collect', title: '체크리스트 목록 화면 개발' });
     $scope.history[0].todos.push({ status: 'collect', title: '구글 어널리스틱 A/B 테스트 구조 구축' });
+
+    $scope.initSVG();
   };
 
   $scope.searchDateInHistory = function(dateString) {
@@ -61,6 +95,8 @@ var rootController = function($scope, $http) {
     $scope.history[todayIndex].todos.unshift(todo);
 
     $scope.onToDo = "";
+
+    $('#stage').css('height', $(document).height());
   };
 
   $scope.init();
