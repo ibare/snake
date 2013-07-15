@@ -1,4 +1,4 @@
-angular.module('snakeApp', []).
+angular.module('snakeApp', ['ngResource']).
   directive('ngOnEnter', function() {
     return function(scope, element, attrs) {
       element.bind("keydown keypress", function(event) {
@@ -10,7 +10,15 @@ angular.module('snakeApp', []).
           event.preventDefault();
         }
       });
-    };
+    }
+  }).
+  config(function($routeProvider) {
+    $routeProvider.
+      when('/', { controller: rootController }).
+      otherwise('/');
+  }).
+  factory('snakeService', function($resource) {
+    return $resource('/api/todos');
   });
 
 /*
@@ -20,21 +28,11 @@ angular.module('snakeApp', []).
   - 중지, 중단, 일시 정지 : hold : 일을 멈춘 상태, 하고 있지 않은 상태, 완료되진 않은 상태. 반드시 work 상태를 지나와야 함
   - 완료, 종료 : clear : 완전히 종료된 상태
 */
-var rootController = function($scope, $http) { 
+var rootController = function($scope, $http, snakeService) { 
   $scope.init = function() { 
     $scope.onToDo = "";
     $scope.inbox = [];
-    $scope.history = [];
-
-    // 테스트용 코드
-    $scope.history.push({ dateCaption: '7/8', todos: [] });
-    $scope.history[0].todos.push({ status: 'collect', title: 'iOS 7 앱 만들기' });
-    $scope.history[0].todos.push({ status: 'collect', title: '회원 관리 기능 개발' });
-    $scope.history[0].todos.push({ status: 'collect', title: '체크리스트 사용자 활동 기능 개발' });
-    $scope.history[0].todos.push({ status: 'collect', title: '체크리스트 회원별 체크 내용 저장 개발' });
-    $scope.history[0].todos.push({ status: 'collect', title: '체크리스트 등록 및 수정 화면 개발' });
-    $scope.history[0].todos.push({ status: 'collect', title: '체크리스트 목록 화면 개발' });
-    $scope.history[0].todos.push({ status: 'collect', title: '구글 어널리스틱 A/B 테스트 구조 구축' });
+    $scope.snakeService = snakeService.get();
   };
 
   $scope.searchDateInHistory = function(dateString) {
